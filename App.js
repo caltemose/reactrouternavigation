@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { MemoryRouter, AndroidBackButton, Switch, Route, Link } from 'react-router-native';
+import { Provider } from 'react-redux';
 
+import configureStore from './store/store';
 
 import Initializer from './screens/Initializer';
 import Home from './screens/Home';
@@ -12,6 +14,11 @@ export default class App extends React.Component {
     isInitialized: false,
   }
 
+  constructor (props) {
+    super(props);
+    this.store = configureStore();
+  }
+
   componentWillMount () {
     /**
      * 1. load preferences from S3
@@ -20,32 +27,35 @@ export default class App extends React.Component {
      * 3. update home screen
      * 4. hide Initializer
      */
-    
   }
 
   render() {
     return (
-      <MemoryRouter>
-        <View style={styles.mainContainer}>
-          <AndroidBackButton />
+      <Provider store={this.store}>
+        <MemoryRouter>
+          <View style={styles.mainContainer}>
+            <AndroidBackButton />
 
-          <View style={styles.nav}>
-            <Link to={`/`} style={styles.navItem} underlayColor="#eee">
-              <Text>Home</Text>
-            </Link>
-            <Link to={`/hello`} style={styles.navItem} underlayColor="#eee">
-              <Text>Hello</Text>
-            </Link>
+            <View style={styles.nav}>
+              <Link to={`/`} style={styles.navItem} underlayColor="#eee">
+                <Text>Home</Text>
+              </Link>
+              <Link to={`/hello`} style={styles.navItem} underlayColor="#eee">
+                <Text>Hello</Text>
+              </Link>
+            </View>
+
+            {this.state.isInitialized && 
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/hello" component={Hello} />
+              </Switch>
+            }
+
+            {!this.state.isInitialized && <Initializer onInitialized={ this._onInitialized } />}
           </View>
-
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/hello" component={Hello} />
-          </Switch>
-
-          {!this.state.isInitialized && <Initializer onInitialized={ this._onInitialized } />}
-        </View>
-      </MemoryRouter>
+        </MemoryRouter>
+      </Provider>
     );
   }
 
