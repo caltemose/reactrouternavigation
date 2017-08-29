@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export default GlobalStyles = {
-  mainContainer: {
+  header: {
+    fontSize: 24,
     marginTop: 25,
   }
 };

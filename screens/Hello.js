@@ -1,19 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
+
+import globalStyles from '../styles/globalStyles';
 
 export default class Hello extends React.Component {
   render() {
     return (
       <View>
-        <Text style={styles.title}>Hello</Text>
+        <Text style={globalStyles.header}>Hello</Text>
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 24,
-    marginTop: 25,
-  }
-})

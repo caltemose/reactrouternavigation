@@ -6,15 +6,16 @@ export default class Initializer extends React.Component {
   render() {
     return (
       <View style={styles.initializer}>
-        <ActivityIndicator animating={true} size="large" color="#aaa" />
+        <ActivityIndicator animating={true} size="large" color="#666" />
+
+        <Text style={styles.loadingText}>Initializing app...</Text>
+
         <Button title="Hide" onPress={this._hide} />
-        <Text>Initializer</Text>
       </View>
     )
   }
 
   _hide = () => {
-    console.log('_hide()');
     this.props.onInitialized();
   }
 }
@@ -29,5 +30,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     width,
     height,
-  }
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loadingText: {
+    marginVertical: 30,
+  },
 })

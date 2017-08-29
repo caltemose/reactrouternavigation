@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { AndroidBackButton, Switch, MemoryRouter, Route, Link } from 'react-router-native';
-import globalStyles from './styles/globalStyles';
+import { MemoryRouter, AndroidBackButton, Switch, Route, Link } from 'react-router-native';
 
+import Initializer from './screens/Initializer';
 import Home from './screens/Home';
 import Hello from './screens/Hello';
-import Initializer from './screens/Initializer';
 
 export default class App extends React.Component {
   state = {
@@ -15,8 +14,9 @@ export default class App extends React.Component {
   render() {
     return (
       <MemoryRouter>
-        <View style={globalStyles.mainContainer}>
+        <View style={styles.mainContainer}>
           <AndroidBackButton />
+
           <View style={styles.nav}>
             <Link to={`/`} style={styles.navItem} underlayColor="#eee">
               <Text>Home</Text>
@@ -25,6 +25,7 @@ export default class App extends React.Component {
               <Text>Hello</Text>
             </Link>
           </View>
+
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/hello" component={Hello} />
@@ -42,10 +43,9 @@ export default class App extends React.Component {
 
 }
 
-
 const styles = StyleSheet.create({
-  main: {
-    marginTop: 30,
+  mainContainer: {
+    marginTop: 25,
   },
   nav: {
     flexDirection: 'row',
@@ -58,36 +58,3 @@ const styles = StyleSheet.create({
   }
 });
 
-
-/*
-<NativeRouter>
-  <Navigation 
-    title="React Router Navigation"
-    navBarStyle={{ backgroundColor: 'red', paddingTop: 30 }}
-    titleStyle={{ flex: 1, alignSelf: 'center' }}
-  >
-    <Card exact path="/" component={Home} />
-    <Card path="/hello" component={Hello} />
-  </Navigation>
-</NativeRouter>
-
-
-{this.state.isLoading && <Initializer onInitialized={this._onInitialized} />}
-{!this.state.isLoading &&
-  <View>
-    <View style={styles.nav}>
-      <Link to="/" style={styles.navItem} underlayColor="#eee">
-        <Text>Home</Text>
-      </Link>
-      <Link to="/hello" style={styles.navItem} underlayColor="#eee">
-        <Text>Hello</Text>
-      </Link>
-    </View>
-    <Route path="/" component={Home} />
-    <Route path="/hello" component={Hello} />
-  </View>
-}
-<Text>
-  this.state.isLoading: {this.state.isLoading}
-</Text>
-*/
