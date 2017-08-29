@@ -1,14 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 
-import globalStyles from '../styles/globalStyles';
+import Header from '../components/Header';
 
 export default class Home extends React.Component {
   render() {
     return (
-      <View>
-        <Text style={globalStyles.header}>Homeeee</Text>
-      </View>
+      <Header text="Home" />
     )
   }
 }

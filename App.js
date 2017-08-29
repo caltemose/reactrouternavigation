@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { MemoryRouter, AndroidBackButton, Switch, Route, Link } from 'react-router-native';
 
+
 import Initializer from './screens/Initializer';
 import Home from './screens/Home';
 import Hello from './screens/Hello';
@@ -9,6 +10,17 @@ import Hello from './screens/Hello';
 export default class App extends React.Component {
   state = {
     isInitialized: false,
+  }
+
+  componentWillMount () {
+    /**
+     * 1. load preferences from S3
+     *  a. create preferences if not available
+     * 2. populate store with plants array
+     * 3. update home screen
+     * 4. hide Initializer
+     */
+    
   }
 
   render() {
