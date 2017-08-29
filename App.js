@@ -3,11 +3,13 @@ import { StyleSheet, View, Text } from 'react-native';
 import { MemoryRouter, AndroidBackButton, Switch, Route, Link } from 'react-router-native';
 import { Provider } from 'react-redux';
 
+import s3 from './store/s3';
 import configureStore from './store/store';
 
 import Initializer from './screens/Initializer';
 import Home from './screens/Home';
 import Hello from './screens/Hello';
+import FooterNav from './components/FooterNav';
 
 export default class App extends React.Component {
   state = {
@@ -20,13 +22,8 @@ export default class App extends React.Component {
   }
 
   componentWillMount () {
-    /**
-     * 1. load preferences from S3
-     *  a. create preferences if not available
-     * 2. populate store with plants array
-     * 3. update home screen
-     * 4. hide Initializer
-     */
+    // s3.loadPreferences(this._onInitialized);
+    this._onInitialized({ plants:[] });
   }
 
   render() {
@@ -36,20 +33,17 @@ export default class App extends React.Component {
           <View style={styles.mainContainer}>
             <AndroidBackButton />
 
-            <View style={styles.nav}>
-              <Link to={`/`} style={styles.navItem} underlayColor="#eee">
-                <Text>Home</Text>
-              </Link>
-              <Link to={`/hello`} style={styles.navItem} underlayColor="#eee">
-                <Text>Hello</Text>
-              </Link>
-            </View>
-
             {this.state.isInitialized && 
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/hello" component={Hello} />
-              </Switch>
+              <View>
+                <View style={styles.content}>
+                  <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/hello" component={Hello} />
+                  </Switch>
+                </View>
+
+                <FooterNav />
+              </View>
             }
 
             {!this.state.isInitialized && <Initializer onInitialized={ this._onInitialized } />}
@@ -59,8 +53,13 @@ export default class App extends React.Component {
     );
   }
 
-  _onInitialized = () => {
-    this.setState({ isInitialized: true });
+  _onInitialized = (results) => {
+    if (results.err) {
+      console.log(results.err);
+    } else {
+      this.store.dispatch({ type: 'SET_PLANTS', payload: results.plants });
+      this.setState({ isInitialized: true });
+    }
   }
 
 }
@@ -69,14 +68,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginTop: 25,
   },
-  nav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  content: {
+    height: '90%',
   },
-  navItem: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 10,
-  }
 });
 
