@@ -1,24 +1,48 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Switch, MemoryRouter, Route } from 'react-router-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { AndroidBackButton, Switch, MemoryRouter, Route, Link } from 'react-router-native';
+import globalStyles from './styles/globalStyles';
 
+import Home from './screens/Home';
+import Hello from './screens/Hello';
 import Initializer from './screens/Initializer';
-import Plants from './screens/Plants';
 
 export default class App extends React.Component {
+  state = {
+    isInitialized: false,
+  }
+
   render() {
     return (
       <MemoryRouter>
-        <Switch>
-          <Route exact path="/" component={Initializer} />
-          <Route path="/plants" component={Plants} />
-        </Switch>
+        <View style={globalStyles.mainContainer}>
+          <AndroidBackButton />
+          <View style={styles.nav}>
+            <Link to={`/`} style={styles.navItem} underlayColor="#eee">
+              <Text>Home</Text>
+            </Link>
+            <Link to={`/hello`} style={styles.navItem} underlayColor="#eee">
+              <Text>Hello</Text>
+            </Link>
+          </View>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/hello" component={Hello} />
+          </Switch>
+
+          {!this.state.isInitialized && <Initializer onInitialized={ this._onInitialized } />}
+        </View>
       </MemoryRouter>
     );
   }
+
+  _onInitialized = () => {
+    this.setState({ isInitialized: true });
+  }
+
 }
 
-/*
+
 const styles = StyleSheet.create({
   main: {
     marginTop: 30,
@@ -33,7 +57,7 @@ const styles = StyleSheet.create({
     padding: 10,
   }
 });
-*/
+
 
 /*
 <NativeRouter>
