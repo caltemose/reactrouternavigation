@@ -6,10 +6,14 @@ import { test, addPlant } from '../store/actions';
 
 import Header from '../components/Header';
 
-const samplePlant = {
-  commonName: 'Cast Iron Plant',
-  genus: 'Aspidistra',
-  species: 'elatior',
+const samplePlant = () => {
+  const id = new Date().getTime();
+  return {
+    commonName: 'Cast Iron Plant',
+    genus: 'Aspidistra',
+    species: 'elatior',
+    id,
+  }
 };
 
 const mapStateToProps = ({ count, plants }) => ({ count, plants });
@@ -23,7 +27,7 @@ const Home = connect(mapStateToProps, mapDispatchToProps)(
       <Text>count: {count}</Text>
       <Button title="TEST" onPress={() => test() } />
       <Text># plants: {plants.length}</Text>
-      <Button title="ADD PLANT" onPress={() => { addPlant(samplePlant) }} />
+      <Button title="ADD PLANT" onPress={() => { addPlant(samplePlant()) }} />
     </View>
   )
 );

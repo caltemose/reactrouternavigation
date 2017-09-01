@@ -10,6 +10,7 @@ import Initializer from './screens/Initializer';
 import Home from './screens/Home';
 import Hello from './screens/Hello';
 import FooterNav from './components/FooterNav';
+import PlantDetails from './screens/PlantDetails';
 
 export default class App extends React.Component {
   state = {
@@ -39,6 +40,7 @@ export default class App extends React.Component {
                   <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/hello" component={Hello} />
+                    <Route path="/plants/:id" component={PlantDetails} />
                   </Switch>
                 </View>
 
