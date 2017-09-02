@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 
-const mapStateToProps = (state) => ({ plantsById });
+const mapStateToProps = ({ plantsById }) => ({ plantsById });
 
 const PlantDetails = connect(mapStateToProps)(
   ({ plantsById, match }) => {
@@ -12,7 +12,7 @@ const PlantDetails = connect(mapStateToProps)(
       <View>
         <Header text="Plant Details" />
         <View style={styles.details}>
-          <Text key={plant.id}>{plant.genus} {plant.genus}</Text>
+          <Text key={plant.id}>{plant.genus} {plant.species}</Text>
         </View>
       </View>
     )

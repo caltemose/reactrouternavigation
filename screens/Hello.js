@@ -14,7 +14,7 @@ const Hello = connect(mapStateToProps)(
       <View style={styles.list}>
         {
           plants.map(plant => (
-            <Link style={styles.navItem} key={plant.id} to={`/plants/{plant.id}`}>
+            <Link style={styles.navItem} key={plant.id} to={`/plants/${plant.id}`}>
               <Text style={styles.navText}>{plant.commonName}</Text>
             </Link>
           ))
