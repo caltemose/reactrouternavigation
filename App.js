@@ -9,6 +9,7 @@ import configureStore from './store/store';
 import Initializer from './screens/Initializer';
 import Home from './screens/Home';
 import Hello from './screens/Hello';
+import AddPlant from './screens/AddPlant';
 import FooterNav from './components/FooterNav';
 import PlantDetails from './screens/PlantDetails';
 
@@ -41,6 +42,7 @@ export default class App extends React.Component {
                     <Route exact path="/" component={Home} />
                     <Route path="/hello" component={Hello} />
                     <Route path="/plants/:id" component={PlantDetails} />
+                    <Route path="/add" component={AddPlant} />
                   </Switch>
                 </View>
 
