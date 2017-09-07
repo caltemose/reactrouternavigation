@@ -3,10 +3,10 @@ import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
 import { connect } from 'react-redux';
 
-import Header from '../components/Header';
-
+import s3 from '../store/s3';
 import { addPlant } from '../store/actions';
 
+import Header from '../components/Header';
 
 class AddPlantComponent extends React.Component {
   state = {
@@ -86,7 +86,17 @@ class AddPlantComponent extends React.Component {
     });
 
     this.props.addPlant(newPlant);
+    console.log(this.props.store);
     // redirect or show next steps (view plant, add another, see all plants)
+    s3.savePreferences(this.props.store, this._onPrefsSaved);
+  }
+
+  _onPrefsSaved = (result) => {
+    if (result.err) {
+      console.error(result);
+    } else {
+      console.log('prefs saved to s3');
+    }
   }
 
   _reset = () => {
@@ -99,7 +109,7 @@ class AddPlantComponent extends React.Component {
   }
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({ store: state });
 
 const mapDispatchToProps = { addPlant };
 
