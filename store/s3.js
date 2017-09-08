@@ -43,14 +43,14 @@ const s3 = {
 
               const options = s3info;
 
-              // RNS3.put(file, options).then(response => {
-              //   if (response.status !== 201) {
-              //     console.error(response);
-              //     throw new Error("Failed to upload prefs");
-              //   }
-              //   console.log('finished', response.body.postResponse.location);
-              //   callback(response.body.postResponse.location);
-              // })
+              RNS3.put(file, options).then(response => {
+                if (response.status !== 201) {
+                  console.error(response);
+                  throw new Error("Failed to upload prefs");
+                }
+                console.log('finished', response.body.postResponse.location);
+                callback(response.body.postResponse.location);
+              })
             })
           })
     } catch (error) {

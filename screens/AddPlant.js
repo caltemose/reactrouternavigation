@@ -82,16 +82,28 @@ class AddPlantComponent extends React.Component {
     
     this.setState({
       id: newPlant.id,
-      submitted: true,
     });
 
     this.props.addPlant(newPlant);
-    console.log(this.props.store);
     // redirect or show next steps (view plant, add another, see all plants)
-    s3.savePreferences(this.props.store, this._onPrefsSaved);
+    setTimeout(this._saveToS3, 100)
+  }
+
+  _saveToS3 = () => {
+    const { version, plants } = this.props.store;
+    const prefs = {
+      version,
+      plants,
+    }
+    // console.log('prefs \n', prefs);
+    s3.savePreferences(prefs, this._onPrefsSaved);
   }
 
   _onPrefsSaved = (result) => {
+    this.setState({
+      submitted: true,
+    });
+
     if (result.err) {
       console.error(result);
     } else {

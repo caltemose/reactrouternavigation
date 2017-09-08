@@ -24,8 +24,8 @@ export default class App extends React.Component {
   }
 
   componentWillMount () {
-    // s3.loadPreferences(this._onInitialized);
-    this._onInitialized({ plants:[] });
+    s3.loadPreferences(this._onInitialized);
+    // this._onInitialized({ plants:[] });
   }
 
   render() {
