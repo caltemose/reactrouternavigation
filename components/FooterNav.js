@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   navItem: {
     flex: 1,
     alignItems: 'center',
-    padding: 10,
+    padding: 20,
   },
   navText: {
     color: 'white',
