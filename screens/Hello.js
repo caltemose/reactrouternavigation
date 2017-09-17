@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-native';
 
@@ -7,21 +7,29 @@ import Header from '../components/Header';
 
 const mapStateToProps = ({ plants }) => ({ plants });
 
+const keyExtractor = (item, index) => item.id;
+
+const renderListItem = ({ item }) => (
+  <Link style={styles.navItem} to={`/plants/${item.id}`}>
+    <Text style={styles.navText}>{item.genus} {item.species}</Text>
+  </Link>
+);
+
 const Hello = connect(mapStateToProps)(
-  ({ plants }) => (
+  ({ plants }) => {
+    console.log(plants);
+    return (
     <View>
       <Header text="All Plants" />
-      <View style={styles.list}>
-        {
-          plants.map(plant => (
-            <Link style={styles.navItem} key={plant.id} to={`/plants/${plant.id}`}>
-              <Text style={styles.navText}>{plant.commonName}</Text>
-            </Link>
-          ))
-        }
-      </View>
+
+      <FlatList
+        data={plants}
+        keyExtractor={keyExtractor}
+        renderItem={renderListItem}
+      />
     </View>
-  )
+    )
+  }
 )
 
 const styles = StyleSheet.create({
@@ -31,7 +39,7 @@ const styles = StyleSheet.create({
   },
   navItem: {
     flex: 1,
-    padding: 20,
+    padding: 5,
   },
   navText: {
     color: 'black',
