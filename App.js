@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   content: {
-    height: '90%',
+    height: '100%',
   },
 });
 

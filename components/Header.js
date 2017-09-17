@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   headerBg: {
     paddingVertical: 12,
     backgroundColor: '#82d75d',
+    marginBottom: 10,
   },
   header: {
     fontSize: 14,
